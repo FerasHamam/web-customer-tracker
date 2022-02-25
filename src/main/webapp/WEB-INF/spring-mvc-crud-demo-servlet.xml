@@ -13,10 +13,9 @@
 		http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
-
 	<!-- Add support for component scanning -->
-	<context:component-scan base-package="com.spring.controller" />
-
+	<context:property-placeholder location="/WEB-INF/app.properties"/>
+	<context:component-scan base-package="com.spring" />
 	<!-- Add support for conversion, formatting and validation support -->
 	<mvc:annotation-driven/>
 
@@ -32,8 +31,8 @@
           destroy-method="close">
         <property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/web_customer_tracker?useSSL=false" />
-        <property name="user" value="user" />
-        <property name="password" value="pass" /> 
+        <property name="user" value="${user.user}" />
+        <property name="password" value="${password.password}" /> 
 
         <!-- these are connection pool properties for C3P0 -->
 		<property name="initialPoolSize" value="5"/>
@@ -46,7 +45,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource" />
-		<property name="packagesToScan" value="com.spring.controller.entity" />
+		<property name="packagesToScan" value="com.spring.entity" />
 		<property name="hibernateProperties">
 		   <props>
 		      <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
@@ -65,8 +64,7 @@
 	<tx:annotation-driven transaction-manager="myTransactionManager" />
 
 	<!-- Add support for reading web resources: css, images, js, etc ... -->
-	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
-	
+	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>	
 	
 	
 </beans>
