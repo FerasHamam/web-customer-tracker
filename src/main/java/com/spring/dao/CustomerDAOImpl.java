@@ -2,6 +2,8 @@ package com.spring.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,27 @@ public class CustomerDAOImpl implements CustomerDAO{
 	@Override
 	public void addCustomer(Customer customer) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(customer);
+		session.saveOrUpdate(customer);
+	}
+	
+	@Override
+	public Customer getCustomer(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Customer customer = session.get(Customer.class, id);
+		return customer;
+		}
+	
+	@Override
+	public void deleteCustomer(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("delete from Customer where id=:customerId");
+		query.setParameter("customerId",id);
+		query.executeUpdate();
+		
+		/*
+		Customer customer = session.get(Customer.class, id);
+		session.delete(customer);
+		*/
 	}
 	
 }

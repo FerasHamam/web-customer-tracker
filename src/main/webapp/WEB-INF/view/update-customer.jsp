@@ -4,7 +4,7 @@
 
 <html>
 	<head>
-		<title>Add Customer</title>
+		<title>Update Customer</title>
 		<link type="text/css"
 		rel="stylesheet"
 		href="${pageContext.request.contextPath}/resources/css/style.css"/>
@@ -19,8 +19,9 @@
 		</div>
 	</div>
 	<div id="container">
-		<h3>Add Customer</h3>
+		<h3>Update Customer</h3>
 		<form:form action="saveCustomer" method="POST" modelAttribute="customer">
+		<form:hidden path="id" />
 		<table>
 		<tbody>
 			<tr>
@@ -29,7 +30,7 @@
 			</tr>
 			<tr>
 			<td><label>Last Name:</label></td>
-			<td><form:input path="lastName"/>
+			<td><form:input path="lastName" />
 			</tr>
 			
 			<tr>
